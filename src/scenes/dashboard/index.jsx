@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import DayBlocks from "../../components/DayBlocks";
 
 // const h = document.body.clientHeight;
@@ -25,6 +25,36 @@ const Dashboard = () => {
     setColor(e.target.id);
   }
 
+  // Function to add our give data into cache
+  const addDataIntoCache = (cacheName, url, response) => {
+    // Converting our response into Actual Response form
+    const data = new Response(JSON.stringify(response));
+    if ('caches' in window) {
+      // Opening given cache and putting our data into it
+      caches.open(cacheName).then((cache) => {
+        cache.put(url, data);
+        alert('Data Added into cache!')
+      });
+    }
+  };
+
+  const getAllCacheData = async (cacheName) => {
+    var url = './'
+    // List of all caches present in browser
+    var name = cacheName
+    var cacheDataArray = []
+
+    // Opening that particular cache
+    const cacheStorage = await caches.open(name);
+    // Fetching that particular cache data
+    const cachedResponse = await cacheStorage.match(url);
+    var data = await cachedResponse.json()
+    // Pushing fetched data into our cacheDataArray
+    cacheDataArray.push(data)
+    setColorList(data);
+  };
+
+
   return (
     <div class="grid grid-cols-4 justify-items-stretch items-center m-5" >
       <div></div>
@@ -45,6 +75,11 @@ const Dashboard = () => {
         {/* <button onClick={handleClick} id="Pink" type="button" class="text-white bg-gradient-to-r from-pink-400 via-pink-500 to-pink-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-pink-300 dark:focus:ring-pink-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2">Pink</button> */}
         <button onClick={handleClick} id="purple" type="button" class="text-white bg-gradient-to-r from-purple-500 via-purple-600 to-purple-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-purple-300 dark:focus:ring-purple-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2">Daily</button>
 
+        <button onClick={()=>addDataIntoCache(date, './', colorList)} >
+          Add Data Into Cache</button>
+
+        <button onClick={()=>getAllCacheData(date)} >
+          Load Data From Cache</button>
       </div>
 
       <div></div>

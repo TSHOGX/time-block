@@ -34,4 +34,5 @@ time interval set as units, 15min, 30min, 60min
 - use javascript native Date function
 
 2023-04-17
-- color change function down 
+- color mark interaction 
+- simple cache system
