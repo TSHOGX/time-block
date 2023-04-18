@@ -36,3 +36,15 @@ time interval set as units, 15min, 30min, 60min
 2023-04-17
 - color mark interaction 
 - simple cache system
+- simple pie chart for one day 
+- ask user to save to cache before refresh
+- better UI
+- see how to handle refresh behavior for a long time, no solution yet available, may change to check on load (if have no saved data..)
+- or change into auto save mode
+
+- [ ] undo && redo
+- [ ] line chart for weekly infomation
+- [ ] leave window without alert
+- [ ] set auto save mode
+- [ ] success image stack pop mode 
+- [ ] just load button (load from certain day, but if no cache found, should alert)
